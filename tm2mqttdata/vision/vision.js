@@ -134,7 +134,7 @@ function publish(target) {
   var mqtt_msg = target;
   var message = new Paho.MQTT.Message(mqtt_msg);
   message.destinationName = topic;
-  for (let i=0; i<5; i++) {
+  for (let i=0; i<1; i++) {
     client.send(message);
   }
 }

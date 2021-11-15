@@ -95,7 +95,12 @@ function startConnect() {
     document.getElementById("messages").innerHTML += '<span>Using the following client value: ' + clientID + '</span><br/>';
 
     // Initialize new Paho client connection
-    client = new Paho.MQTT.Client("wss://"+host+":"+port+"/", clientID);
+    if (host == "broker.emqx.io") {
+      client = new Paho.MQTT.Client("wss://"+host+":"+port+"/mqtt", clientID);
+    }
+    else {
+      client = new Paho.MQTT.Client("wss://"+host+":"+port+"/", clientID);
+    }
 
     // Set callback handlers
     client.onConnectionLost = onConnectionLost;

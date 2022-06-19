@@ -22,6 +22,14 @@
         </tr>
       </table>
       <input type="button" onclick="init()" value="Webcam">
+      <br><div id="mname" style="text-align:left;"><h3>WebUSB:</h3></div>
+      <table>
+        <tr>
+          <th>Baud Rate:</th>
+          <th><input id="baudin" type="number" name="baudin" value="9600"></th>
+        </tr>
+      </table>
+      <input type="button" onclick="Web_USB_Connect()" value="連接WebUSB">
       <br><div id="mname" style="text-align:left;"><h3>MQTT Server:</h3></div>
       <table>
         <tr>

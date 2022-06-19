@@ -4,6 +4,7 @@ var video;
 var webcamWidth;
 var webcamHeight;
 let labelContainer, maxPredictions, position = -1, range, check = -1, lastrange = -1, bigname;
+let send_state = 0;
 
 let target_list = [];
 let score_list = [];
@@ -142,10 +143,18 @@ const fetchPredictionForImage = base64Img => {
       if (lastrange > 0.7) {
         if (position != check) {
             try {
-                publish(String(position + 1));
+                if (send_state == 1) {
+                  Web_USB_Send(String(position + 1));
+                  //console.log("web usb:" + String(position + 1))
+
+                }
+
+                else if (send_state == 2) {
+                  publish(String(position + 1));
+                }
                 check = position;
             } catch (error) {
-                // pass
+                console.log(error);
             }
         }
       }
@@ -154,6 +163,41 @@ const fetchPredictionForImage = base64Img => {
     });
 };
 
+// WebUSB
+let port, baud = 9600;
+async function Web_USB_Connect() {
+  try {
+    if (!("serial" in navigator)) {
+      alert("此瀏覽器不支援WebUSB功能。");
+    }
+    baud = document.getElementById("baudin").value;
+    port = await navigator.serial.requestPort();
+    await port.open({ baudRate: baud });
+    send_state = 1;
+  }
+  catch(e) {
+    console.log(e);
+  }
+}
+
+async function Web_USB_Send(strMsg) {
+  const encoder = new TextEncoder();
+  const writer = port.writable.getWriter();
+  await writer.write(encoder.encode(strMsg));
+  writer.releaseLock();
+}
+
+
+navigator.serial.addEventListener("connect", (event) => {
+  alert("請重新點選連線按鈕，連接USB裝置。");
+});
+
+navigator.serial.addEventListener("disconnect", (event) => {
+  send_state = 0;
+  alert("USB裝置已移除，網頁連線斷開。");
+});
+
+// MQTT
 // Called after form input is processed
 function startConnect() {
     // Generate a random client ID
@@ -187,6 +231,7 @@ function startConnect() {
 
 // Called when the client connects
 function onConnect() {
+    send_state = 2;
     // Fetch the MQTT topic from the form
     topic = document.getElementById("topic").value;
 
@@ -217,6 +262,7 @@ function startDisconnect() {
     client.disconnect();
     document.getElementById("messages").innerHTML += '<span>Disconnected</span><br/>';
     updateScroll(); // Scroll to bottom of window
+    send_state = 0;
 }
 
 // Updates #messages div to auto-scroll

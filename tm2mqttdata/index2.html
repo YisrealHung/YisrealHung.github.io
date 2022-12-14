@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      html, body{
+        padding: 0;
+        margin: 0;
+      }
+      #myChart{
+        margin: auto;
+        margin-top: 50px;
+        /* background: #f9e498; */
+        display: block;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+
+<body>
+    <canvas id="tempChart" width="480px" height="320px"></canvas>
+    <canvas id="humidChart" width="480px" height="320px"></canvas>
+    <script>
+        function drawChart() {
+          fetch('https://script.googleusercontent.com/macros/echo?user_content_key=pHFTv3u7VkOWXyHSSxduqvvXhRzyacIdiWhe5oKZeca5IHeyUxCfvQ7kOiWTOqurqIr1oCsSbcXBwv7JCqXZB-Kuy-650y0lm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnOAqRtjpGVPwzrKN3gDLIJ71x4oQGHKcVNKO2Ikst8pGNqaWOodup6kJIP63j4xqY2u0hDinFH3jtXJ8eF-fk1BP-tbkAszC1Q&lib=Mf8i8NoPNxZ41oY1QTI_nuUSZlvIfKm0s')
+              .then(res => res.json())
+              .then(data => {
+                  let jsonData = data.content;
+                  let tempData = [];
+                  let humidData = [];
+
+                  for (let i=1; i<11; i++) {
+                    let readTime = jsonData[i][0];
+                    let nowTime = '';
+                    for (let j=5; j<readTime.length; j++) {
+                      if (readTime[j] == " ") {
+                        nowTime = readTime.slice(j+1);
+                        break
+                      }
+                    }
+                    tempData.push({"Time": nowTime, "Temp": jsonData[i][1]})
+                    humidData.push({"Time": nowTime, "Humid": jsonData[i][2]})
+                  }
+
+                  var ctx = document.getElementById('tempChart').getContext('2d');
+                  var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                      labels: tempData.map(x=>x.Time),
+                      datasets: [{
+                        label: 'temp',
+                        data: tempData.map(x=>x.Temp),        // Line
+                        lineTension: 0,
+                        backgroundColor: '#20C68B',
+                        borderColor: '#20C68B',
+                        fill: false,
+                        borderWidth: 2,        // Point
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                      }]
+                    },
+                    options:{
+                      title:{
+                        display: true,
+                        text: '溫度',
+                        position: 'bottom',
+                        fontSize: 24,
+                        fontStyle: 'normal',
+                        fontFamily: 'Century Gothic'
+                      },      legend:{
+                        display: false
+                      },
+                      responsive: false
+                    }
+                  });
+
+                  var ctx = document.getElementById('humidChart').getContext('2d');
+                  var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                      labels: humidData.map(x=>x.Time),
+                      datasets: [{
+                        label: 'humid',
+                        data: humidData.map(x=>x.Humid),        // Line
+                        lineTension: 0,
+                        backgroundColor: '#FF5376',
+                        borderColor: '#FF5376',
+                        fill: false,
+                        borderWidth: 2,        // Point
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                      }]
+                    },
+                    options:{
+                      title:{
+                        display: true,
+                        text: '濕度',
+                        position: 'bottom',
+                        fontSize: 24,
+                        fontStyle: 'normal',
+                        fontFamily: 'Century Gothic'
+                      },      legend:{
+                        display: false
+                      },
+                      responsive: false
+                    }
+                  });
+              });
+              //console.log("done");
+            }
+            drawChart();
+            setInterval(drawChart, 60000);
+
+    </script>
+</body>
+
+</html>

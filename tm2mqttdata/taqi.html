@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>JavaScript - read JSON from URL</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="mypanel"></div>
+
+    <script>
+    $.getJSON('https://data.epa.gov.tw/api/v2/aqx_p_488?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=datacreationdate%20desc&format=JSON', function(data) {
+
+
+
+        let getUrlString = location.href;
+        let url = new URL(getUrlString);
+        let city_number = url.searchParams.get('city');
+
+        let sitename = data.records[city_number]['sitename'];
+        let aqi = data.records[city_number]['aqi'];
+        let so2 = data.records[city_number]['so2'];
+        let co = data.records[city_number]['co'];
+        let o3 = data.records[city_number]['o3'];
+        let windspeed = data.records[city_number]['windspeed'];
+        let pm10 = data.records[city_number]['pm10'];
+        let pm25 = data.records[city_number]['pm2.5'];
+        let pm10_avg = data.records[city_number]['pm10_avg'];
+        let pm25_avg = data.records[city_number]['pm2.5_avg'];
+
+        let text = `{<br>
+                      "sitename": "${sitename}",<br>
+                      "aqi": "${aqi}",<br>
+                      "so2": "${so2}",<br>
+                      "co": "${co}",<br>
+                      "o3": "${o3}",<br>
+                      "windspeed": "${windspeed}",<br>
+                      "pm10": "${pm10}",<br>
+                      "pm2.5": "${pm25}",<br>
+                      "pm10_avg": "${pm10_avg}",<br>
+                      "pm2.5_avg": "${pm25_avg}<br>
+                    }`
+
+
+        $(".mypanel").html(text);
+    });
+
+
+    //let text = `aqi: ${data.records[0]['sitename']}`
+    </script>
+
+</body>
+</html>

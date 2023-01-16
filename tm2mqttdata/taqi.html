@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>JavaScript - read JSON from URL</title>
+<title>TaiwanAQI</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
@@ -28,21 +28,7 @@
         let pm10_avg = data.records[city_number]['pm10_avg'];
         let pm25_avg = data.records[city_number]['pm2.5_avg'];
 
-        let text = `{<br>
-                      "sitename": "${sitename}",<br>
-                      "aqi": "${aqi}",<br>
-                      "so2": "${so2}",<br>
-                      "co": "${co}",<br>
-                      "o3": "${o3}",<br>
-                      "windspeed": "${windspeed}",<br>
-                      "pm10": "${pm10}",<br>
-                      "pm2.5": "${pm25}",<br>
-                      "pm10_avg": "${pm10_avg}",<br>
-                      "pm2.5_avg": "${pm25_avg}<br>
-                    }`
-
-
-        $(".mypanel").html(text);
+        $(".mypanel").html(JSON.stringify({sitename: sitename, aqi: aqi, so2: so2, co: co, o3: o3, windspeed: windspeed, pm10: pm10, pm25: pm25, pm10_avg: pm10_avg, pm25_avg: pm25_avg}, null, 4));
     });
 
 

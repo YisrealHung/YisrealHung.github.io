@@ -27,7 +27,7 @@
         let pm25 = data.records[city_number]['pm2.5'];
         let pm10_avg = data.records[city_number]['pm10_avg'];
         let pm25_avg = data.records[city_number]['pm2.5_avg'];
-
+        concole.log(JSON.stringify({sitename: sitename, aqi: aqi, so2: so2, co: co, o3: o3, windspeed: windspeed, pm10: pm10, pm25: pm25, pm10_avg: pm10_avg, pm25_avg: pm25_avg}, null, 4));
         $(".mypanel").html(JSON.stringify({sitename: sitename, aqi: aqi, so2: so2, co: co, o3: o3, windspeed: windspeed, pm10: pm10, pm25: pm25, pm10_avg: pm10_avg, pm25_avg: pm25_avg}, null, 4));
     });
 

@@ -1,0 +1,28 @@
+<xml>
+<category><name>catICSHOP</name><lang>ICSHOP</lang></category>
+<category><name>category_linkit_wifi_5G</name><lang>7697D 5G Wi-Fi</lang></category>
+<category><name>category_mooncar</name><lang>MoonCar</lang></category>
+<category><name>category_apollo</name><lang>APOLLO</lang></category>
+<category><name>category_pixetto</name><lang>Pixetto</lang></category>
+<category><name>category_huskylens</name><lang>HuskyLens</lang></category>
+<category><name>category_ez_start_kit</name><lang>EZ Start Kit</lang></category>
+<category><name>category_ez_start_kit_q</name><lang>EZ Start Kit Q</lang></category>
+<category><name>category_RockBot</name><lang>RockBot</lang></category>
+<category><name>category_eeprom</name><lang>EEPROM</lang></category>
+<category><name>category_NFC_RFID</name><lang>RFID/NFC</lang></category>
+<category><name>category_m5_stack_v</name><lang>M5Stack V</lang></category>
+<category><name>category_motion_detect</name><lang>Motion Detect</lang></category>
+<category><name>category_target_trace</name><lang>Target Trace</lang></category>
+<category><name>category_color_trace</name><lang>Color Trace</lang></category>
+<category><name>category_face_detect</name><lang>Face Detect</lang></category>
+<category><name>category_qr_code</name><lang>QR Code</lang></category>
+<category><name>category_bar_code</name><lang>Bar Code</lang></category>
+<category><name>category_datamatrix_code</name><lang>Datamatrix Code</lang></category>
+<category><name>category_april_tag</name><lang>AprilTag</lang></category>
+<category><name>category_tag_reader</name><lang>Tag Reader</lang></category>
+<category><name>category_line_tracker</name><lang>Line Tracker</lang></category>
+<category><name>category_pca9685</name><lang>PCA9685</lang></category>
+<category><name>category_sensor_big</name><lang>Sensor Expansion</lang></category>
+<category><name>category_am7020</name><lang>AM7020</lang></category>
+<category><name>category_adafruitio</name><lang>AdafruitIO</lang></category>
+</xml>
